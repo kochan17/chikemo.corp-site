@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
 import { TICKETS } from '../../constants';
 import { ArrowUpRight } from 'lucide-react';
 import { TicketItem } from '../../types';
 
-const TicketCard: React.FC<{ item: TicketItem; index: number }> = ({ item, index }) => {
+const HolographicCard: React.FC<{ item: TicketItem; index: number }> = ({ item, index }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
@@ -13,20 +13,21 @@ const TicketCard: React.FC<{ item: TicketItem; index: number }> = ({ item, index
   const mouseXSpring = useSpring(x);
   const mouseYSpring = useSpring(y);
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
+  
+  // Holographic sheen effect
+  const sheenX = useTransform(mouseXSpring, [-0.5, 0.5], ["0%", "100%"]);
+  const sheenY = useTransform(mouseYSpring, [-0.5, 0.5], ["0%", "100%"]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
 
     const rect = ref.current.getBoundingClientRect();
-
     const width = rect.width;
     const height = rect.height;
-
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
-
     const xPct = mouseX / width - 0.5;
     const yPct = mouseY / height - 0.5;
 
@@ -57,7 +58,7 @@ const TicketCard: React.FC<{ item: TicketItem; index: number }> = ({ item, index
           rotateY,
           transformStyle: "preserve-3d",
         }}
-        className="w-full h-full relative rounded-2xl transition-all duration-200 ease-linear shadow-xl"
+        className="w-full h-full relative rounded-2xl transition-all duration-200 ease-linear shadow-[0_20px_50px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_rgba(230,0,18,0.2)]"
       >
         <div 
           className="absolute inset-0 rounded-2xl overflow-hidden bg-gray-900 border border-gray-100"
@@ -66,25 +67,39 @@ const TicketCard: React.FC<{ item: TicketItem; index: number }> = ({ item, index
           <img 
             src={item.image} 
             alt={item.name} 
-            className="w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-700"
+            className="w-full h-full object-cover opacity-90 group-hover:scale-110 transition-transform duration-700 grayscale-[30%] group-hover:grayscale-0"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+          
+          {/* Holographic Sheen Layer */}
+          <motion.div 
+            className="absolute inset-0 opacity-0 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none"
+            style={{
+                background: useMotionTemplate`radial-gradient(circle at ${sheenX} ${sheenY}, rgba(255,255,255,0.4), transparent 60%)`,
+                mixBlendMode: "overlay"
+            }}
+          />
         </div>
 
         <div 
-          className="absolute bottom-6 left-6 z-20"
-          style={{ transform: "translateZ(50px)" }}
+          className="absolute bottom-8 left-8 z-20"
+          style={{ transform: "translateZ(60px)" }}
         >
-          <span className="inline-block px-3 py-1 bg-[#E60012] text-white text-xs font-bold rounded-full mb-2">
-            {item.category}
-          </span>
-          <h3 className="text-2xl font-bold text-white mb-1">{item.name}</h3>
-          <p className="text-gray-300 text-sm">取引価格目安 <span className="text-[#E60012] font-bold text-lg">{item.discount}</span></p>
+          <div className="flex items-center gap-3 mb-3">
+             <div className="h-[1px] w-8 bg-[#E60012]" />
+             <span className="text-[#E60012] text-xs font-bold tracking-widest uppercase">
+                {item.category}
+             </span>
+          </div>
+          <h3 className="text-3xl font-black text-white mb-2">{item.name}</h3>
+          <p className="text-gray-300 text-sm font-mono tracking-wider">
+            DISCOUNT: <span className="text-white font-bold text-xl">{item.discount}</span>
+          </p>
         </div>
 
         <div 
-          className="absolute top-6 right-6 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/30"
-          style={{ transform: "translateZ(30px)" }}
+          className="absolute top-6 right-6 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/20 group-hover:bg-[#E60012] group-hover:border-[#E60012] transition-colors duration-300"
+          style={{ transform: "translateZ(40px)" }}
         >
           <ArrowUpRight size={20} />
         </div>
@@ -95,33 +110,43 @@ const TicketCard: React.FC<{ item: TicketItem; index: number }> = ({ item, index
 
 const Showcase: React.FC = () => {
   return (
-    <section id="showcase" className="py-24 bg-gray-50 relative overflow-hidden">
+    <section id="showcase" className="py-32 bg-[#F8F8F8] relative overflow-hidden">
+      {/* Technical Grid Background */}
+      <div 
+        className="absolute inset-0 z-0 opacity-[0.05]" 
+        style={{
+            backgroundImage: `linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)`,
+            backgroundSize: '40px 40px'
+        }}
+      />
+      
       <div className="container px-6 mx-auto relative z-10">
         <motion.div 
-          className="mb-16 md:flex md:items-end md:justify-between"
+          className="mb-20 flex flex-col md:flex-row md:items-end md:justify-between border-b border-gray-200 pb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <div className="max-w-xl">
-            <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">
-              人気の商品券・優待券
+          <div className="max-w-2xl">
+            <span className="text-[#E60012] font-mono text-sm tracking-wider mb-2 block">01 / PRODUCTS</span>
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-[#171717]">
+              Selected<br />Tickets.
             </h2>
-            <p className="text-gray-600">
-              Chikemoでは、百貨店共通商品券、ギフトカード、旅行券など、<br className="hidden md:block"/>
-              多種多様な金券を安全かつお得に購入できます。
-            </p>
           </div>
-          <div className="mt-6 md:mt-0">
-             <a href="https://chikemo.net" target="_blank" rel="noreferrer" className="text-[#E60012] font-bold hover:underline flex items-center gap-2 group">
-                すべての金券を見る <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          <div className="mt-8 md:mt-0 flex flex-col items-start md:items-end">
+             <p className="text-gray-500 text-right mb-6 hidden md:block leading-relaxed">
+               毎日の生活を豊かにする、<br />
+               選りすぐりの金券を取り揃えています。
+             </p>
+             <a href="https://chikemo.net" target="_blank" rel="noreferrer" className="text-[#171717] text-lg font-bold flex items-center gap-2 group hover:text-[#E60012] transition-colors">
+                View All Items <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
              </a>
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 lg:gap-x-16 lg:gap-y-20">
           {TICKETS.map((ticket, index) => (
-            <TicketCard key={ticket.id} item={ticket} index={index} />
+            <HolographicCard key={ticket.id} item={ticket} index={index} />
           ))}
         </div>
       </div>

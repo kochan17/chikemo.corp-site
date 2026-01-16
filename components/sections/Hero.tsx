@@ -1,9 +1,29 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import MagneticButton from '../ui/MagneticButton';
 import { ArrowRight } from 'lucide-react';
 
+const MarqueeText: React.FC<{ text: string; direction?: number }> = ({ text, direction = 1 }) => {
+  return (
+    <div className="flex overflow-hidden whitespace-nowrap opacity-[0.04] pointer-events-none select-none absolute top-1/2 left-0 right-0 -translate-y-1/2 z-0">
+      <motion.div
+        className="flex gap-8 text-[12rem] md:text-[20rem] font-black leading-none uppercase text-black"
+        animate={{ x: direction > 0 ? [0, -1000] : [-1000, 0] }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+      >
+        {[...Array(4)].map((_, i) => (
+          <span key={i}>{text}</span>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
 const Hero: React.FC = () => {
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+  const y2 = useTransform(scrollY, [0, 500], [0, -150]);
+
   const phrase = "金券を、もっと賢く。";
   const words = phrase.split("");
 
@@ -28,38 +48,46 @@ const Hero: React.FC = () => {
     },
     hidden: {
       opacity: 0,
-      y: 50,
+      y: 80,
       rotateX: -45,
     },
   };
 
   return (
-    <section id="top" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Dynamic Background */}
-      <div className="absolute inset-0 z-0 bg-white">
-        <motion.div 
-          className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-red-100 rounded-full blur-[120px] opacity-40"
-          animate={{ 
-            x: [0, 100, 0], 
-            y: [0, 50, 0],
-            scale: [1, 1.2, 1] 
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div 
-          className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-orange-50 rounded-full blur-[100px] opacity-40"
-          animate={{ 
-            x: [0, -100, 0], 
-            y: [0, -50, 0],
-            scale: [1, 1.1, 1] 
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        />
-      </div>
+    <section id="top" className="relative min-h-[110vh] flex flex-col items-center justify-center overflow-hidden bg-white">
+      {/* Kinetic Background */}
+      <MarqueeText text="SECURE TRUST SMART " direction={1} />
+      
+      {/* Abstract Shapes */}
+      <motion.div 
+        style={{ y: y1 }}
+        className="absolute top-[10%] left-[5%] w-[40vw] h-[40vw] bg-gradient-to-br from-red-100/50 to-transparent rounded-full blur-[100px] z-0"
+      />
+      <motion.div 
+        style={{ y: y2 }}
+        className="absolute bottom-[10%] right-[5%] w-[50vw] h-[50vw] bg-gradient-to-tl from-orange-100/50 to-transparent rounded-full blur-[120px] z-0"
+      />
 
       <div className="container relative z-10 px-6 flex flex-col items-center text-center">
+        <div className="mb-6 inline-block">
+            <motion.div 
+                initial={{ width: 0 }} 
+                animate={{ width: "100%" }} 
+                transition={{ duration: 1, delay: 0.5 }}
+                className="h-[1px] bg-[#E60012] mb-4 mx-auto"
+            />
+            <motion.span 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1 }}
+                className="text-xs font-bold tracking-[0.3em] text-[#E60012] uppercase"
+            >
+                Next Gen Ticket Platform
+            </motion.span>
+        </div>
+
         <motion.div 
-          className="mb-8 overflow-hidden"
+          className="mb-10 overflow-hidden perspective-1000"
           variants={container}
           initial="hidden"
           animate="visible"
@@ -81,10 +109,11 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.8 }}
-          className="text-lg md:text-xl text-gray-600 mb-12 max-w-2xl font-medium"
+          className="text-lg md:text-xl text-gray-500 mb-12 max-w-2xl font-medium leading-relaxed tracking-wide"
         >
-          安心・透明・スピーディー。<br className="md:hidden" />
-          新しい時代のチケット売買プラットフォーム。
+          テクノロジーで、二次流通を透明に。<br className="md:hidden" />
+          Chikemoは、最も安全でスマートな<br className="md:hidden" />
+          チケット売買プラットフォームです。
         </motion.p>
 
         <motion.div
@@ -93,33 +122,16 @@ const Hero: React.FC = () => {
           transition={{ delay: 1.8, duration: 0.5 }}
         >
           <MagneticButton 
-            className="text-lg px-10 py-5"
+            className="text-lg px-12 py-6 shadow-2xl shadow-red-500/20"
             onClick={() => {
               const element = document.getElementById('showcase');
               element?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            今すぐ探す <ArrowRight className="ml-2" />
+            体験を始める <ArrowRight className="ml-2" />
           </MagneticButton>
         </motion.div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div 
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.5 }}
-      >
-        <span className="text-xs uppercase tracking-widest text-gray-400">Scroll</span>
-        <div className="w-[1px] h-12 bg-gray-200 overflow-hidden relative">
-          <motion.div 
-            className="w-full h-1/2 bg-[#E60012] absolute top-0"
-            animate={{ top: ['-100%', '100%'] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </div>
-      </motion.div>
     </section>
   );
 };

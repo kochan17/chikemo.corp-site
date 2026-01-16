@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface TicketItem {
   id: string;
   name: string;
@@ -18,4 +20,16 @@ export interface CompanyInfo {
 export interface NavItem {
   label: string;
   href: string;
+}
+
+export interface FeatureItem {
+  title: string;
+  description: string;
+  icon: React.ElementType;
+  className?: string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
 }

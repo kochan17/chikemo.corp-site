@@ -1,90 +1,150 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 import { Search, ShoppingCart, ShieldCheck, ArrowRight } from 'lucide-react';
 import MagneticButton from '../ui/MagneticButton';
 
 const steps = [
   {
     icon: Search,
-    title: "1. 探す",
-    desc: "欲しい金券を検索。詳細な条件で絞り込み、最適な価格の出品を見つけましょう。"
+    title: "Search",
+    subtitle: "探す",
+    desc: "欲しい金券をスマートに検索。詳細な条件絞り込み機能と、リアルタイムな価格更新で、最適な出品を逃しません。",
+    color: "#171717"
   },
   {
     icon: ShoppingCart,
-    title: "2. 購入",
-    desc: "1分で購入完了。代金は事務局が一時預かりするエスクロー決済なので安心です。"
+    title: "Purchase",
+    subtitle: "購入",
+    desc: "わずか3タップで購入完了。代金は事務局が一時預かりする「エスクロー決済」を採用。商品が届くまで、お金は守られます。",
+    color: "#333333"
   },
   {
     icon: ShieldCheck,
-    title: "3. 届く",
-    desc: "チケットが手元に届き、内容を確認してから出品者に代金が支払われます。"
+    title: "Receive",
+    subtitle: "届く",
+    desc: "チケットが手元に届き、中身を確認してから出品者に代金が支払われます。万が一のトラブル時も、全額返金保証で安心。",
+    color: "#E60012"
   }
 ];
 
-const Process: React.FC = () => {
+const Card: React.FC<{
+  i: number;
+  title: string;
+  subtitle: string;
+  desc: string;
+  icon: React.ElementType;
+  color: string;
+  progress: MotionValue<number>;
+  range: [number, number];
+  targetScale: number;
+}> = ({ i, title, subtitle, desc, icon: Icon, color, progress, range, targetScale }) => {
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ['start end', 'start start']
+  });
+
+  const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
+  const scale = useTransform(progress, range, [1, targetScale]);
+  
   return (
-    <section id="process" className="py-32 bg-white relative">
-      <div className="container px-6 mx-auto">
-        <div className="text-center mb-20">
-          <motion.span 
-            className="text-[#E60012] font-bold tracking-widest uppercase text-sm"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            How it works
-          </motion.span>
-          <motion.h2 
-            className="text-4xl md:text-6xl font-black mt-4 mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            購入は驚くほど簡単
-          </motion.h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-          {/* Connector Line */}
-          <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-[2px] bg-gray-100 z-0" />
-
-          {steps.map((step, idx) => (
-            <motion.div
-              key={idx}
-              className="relative z-10 flex flex-col items-center text-center"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.2 }}
-              viewport={{ once: true }}
-            >
-              <div className="w-24 h-24 bg-white rounded-full border border-gray-100 shadow-xl flex items-center justify-center mb-8 group transition-colors duration-500 hover:border-[#E60012]">
-                <step.icon size={32} className="text-[#171717] group-hover:text-[#E60012] transition-colors duration-300" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">{step.title}</h3>
-              <p className="text-gray-500 leading-relaxed px-4">{step.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-24 flex justify-center">
-            <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-            >
-                <div className="p-[2px] bg-gradient-to-r from-[#E60012] via-orange-500 to-[#E60012] rounded-full">
-                    <div className="bg-white rounded-full p-2">
-                        <MagneticButton 
-                            className="text-xl px-12 py-6 bg-[#171717] hover:bg-[#000000] text-white"
-                            onClick={() => window.open('https://chikemo.net', '_blank')}
-                        >
-                            Chikemoを始める <ArrowRight />
-                        </MagneticButton>
+    <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
+      <motion.div 
+        style={{ scale, top: `calc(-5vh + ${i * 25}px)` }} 
+        className="flex flex-col relative h-[500px] w-full max-w-4xl rounded-[3rem] p-12 origin-top border border-gray-200 shadow-2xl overflow-hidden bg-white"
+      >
+        <div className="flex h-full flex-col md:flex-row gap-12 relative z-10">
+            {/* Left Content */}
+            <div className="w-full md:w-[40%] flex flex-col justify-between">
+                <div>
+                    <div className="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center mb-8">
+                        <Icon size={32} className="text-[#171717]" />
                     </div>
+                    <span className="text-8xl font-black text-gray-100 absolute top-4 right-8 md:left-0 md:right-auto md:-top-6 -z-10 select-none">
+                        0{i + 1}
+                    </span>
+                    <h2 className="text-4xl font-bold mb-2">{title}</h2>
+                    <span className="text-[#E60012] font-bold tracking-widest text-sm uppercase">{subtitle}</span>
                 </div>
-            </motion.div>
+                <p className="text-gray-600 leading-loose text-lg mt-8 md:mt-0">
+                    {desc}
+                </p>
+            </div>
+
+            {/* Right Visual (Abstract) */}
+            <div className="w-full md:w-[60%] h-full rounded-2xl overflow-hidden relative bg-gray-100">
+                <motion.div 
+                    style={{ scale: imageScale }}
+                    className="w-full h-full"
+                >
+                    {/* Abstract Geometry for Visual Interest */}
+                    <div 
+                        className="w-full h-full opacity-80"
+                        style={{ 
+                            background: i === 2 
+                                ? `linear-gradient(135deg, ${color} 0%, #ff4d5a 100%)` 
+                                : `linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%)` 
+                        }} 
+                    >
+                         {/* Pattern inside the card visual */}
+                         <div className="absolute inset-0 opacity-20" 
+                              style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '20px 20px' }} 
+                         />
+                         
+                         <div className="absolute inset-0 flex items-center justify-center">
+                            <Icon size={120} className={i === 2 ? "text-white/20" : "text-black/5"} />
+                         </div>
+                    </div>
+                </motion.div>
+            </div>
         </div>
+      </motion.div>
+    </div>
+  )
+}
+
+const Process: React.FC = () => {
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ['start start', 'end end']
+  })
+
+  return (
+    <section id="process" className="relative mt-32 bg-gray-50" ref={container}>
+      <div className="container mx-auto px-6 pt-24 pb-12">
+        <div className="text-center mb-12">
+            <span className="text-[#E60012] font-mono text-sm tracking-wider">02 / HOW IT WORKS</span>
+            <h2 className="text-5xl md:text-7xl font-black mt-4 tracking-tighter text-[#171717]">Simple Process.</h2>
+        </div>
+      </div>
+
+      <div className="pb-24">
+        {
+            steps.map( (step, i) => {
+            const targetScale = 1 - ( (steps.length - i) * 0.05);
+            return <Card key={i} i={i} {...step} progress={scrollYProgress} range={[i * .25, 1]} targetScale={targetScale}/>
+            })
+        }
+      </div>
+
+      {/* Final CTA */}
+      <div className="h-[50vh] flex items-center justify-center bg-[#171717] text-white relative overflow-hidden">
+         <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+         <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            className="z-10 text-center"
+         >
+            <h2 className="text-4xl md:text-6xl font-black mb-8">Ready to Start?</h2>
+            <MagneticButton 
+                className="text-xl px-12 py-6 bg-white text-black hover:bg-[#E60012] hover:text-white border-none"
+                onClick={() => window.open('https://chikemo.net', '_blank')}
+            >
+                Chikemoを始める <ArrowRight />
+            </MagneticButton>
+         </motion.div>
       </div>
     </section>
   );
