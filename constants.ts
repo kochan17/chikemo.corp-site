@@ -1,4 +1,4 @@
-import { CompanyInfo, NavItem, TicketItem, FeatureItem, FaqItem } from './types';
+import { CompanyInfo, NavItem, ServiceItem, FeatureItem, FaqItem } from './types';
 import { Zap, ShieldCheck, Smartphone, RefreshCw } from 'lucide-react';
 
 export const BRAND_COLORS = {
@@ -14,72 +14,62 @@ export const COMPANY_INFO: CompanyInfo = {
   established: '2025年5月14日',
   representative: '代表取締役 古木 雄大',
   address: '〒170-0013 東京都豊島区東池袋5-7-3',
-  business: 'チケット売買プラットフォーム「Chikemo」の企画・開発・運営、インターネットサービスの開発・運営',
+  business: 'インターネットサービスの企画・開発・運営、ギフト・ライフスタイル事業',
   license: '東京都公安委員会 第305512518791号',
 };
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Top', href: '#top' },
-  { label: '特徴', href: '#features' },
-  { label: '金券を探す', href: '#showcase' },
-  { label: '使い方', href: '#process' },
-  { label: 'FAQ', href: '#faq' },
-  { label: '会社概要', href: '#company' },
+  { label: 'Philosophy', href: '#philosophy' },
+  { label: 'Services', href: '#showcase' },
+  { label: 'Reliability', href: '#trust' },
+  { label: 'Usage', href: '#process' },
+  { label: 'About', href: '#about' },
 ];
 
-export const TICKETS: TicketItem[] = [
+export const SERVICES: ServiceItem[] = [
   {
-    id: '1',
-    name: 'Amazon Gift',
-    category: 'ギフト券',
-    discount: '94%~',
-    image: 'https://picsum.photos/400/250?random=1',
+    id: 'chikemo',
+    name: 'チケモ',
+    tagline: 'Ticket Flea Market',
+    description: '「安く、早く、安全に」。金券・チケットの売買をもっと手軽にする、オンライン金券ショップです。',
+    link: 'https://chikemo.net',
+    image: './chikemo.png',
+    color: '#E60012',
   },
   {
-    id: '2',
-    name: 'Department Store',
-    category: '百貨店共通商品券',
-    discount: '96%~',
-    image: 'https://picsum.photos/400/250?random=2',
-  },
-  {
-    id: '3',
-    name: 'Airline Stock',
-    category: '航空株主優待券',
-    discount: '50%OFF',
-    image: 'https://picsum.photos/400/250?random=3',
-  },
-  {
-    id: '4',
-    name: 'Travel Card',
-    category: '旅行券',
-    discount: '92%~',
-    image: 'https://picsum.photos/400/250?random=4',
+    id: 'ceremo',
+    name: 'セレモ',
+    tagline: 'Imabari Towel Gift',
+    description: 'お祝いや返礼品に。品質にこだわった今治タオルを、木箱に入れて丁寧にお届けするギフトショップです。',
+    link: 'https://ceremo.bigcartel.com/',
+    image: './タオル.jpg',
+    color: '#C5A065', // Gold/Beige for premium feel
   },
 ];
 
 export const FEATURES: FeatureItem[] = [
   {
-    title: "業界最安級の手数料",
-    description: "売り手も買い手も嬉しい、業界最低水準の手数料を実現。余計なコストをかけずに、賢く売買できます。",
-    icon: Zap,
+    title: "Simple & Easy",
+    description: "難しい操作は必要ありません。どなたでも簡単に、チケットの売買やギフトの注文が可能です。",
+    icon: Smartphone,
     className: "md:col-span-2",
   },
   {
-    title: "安心のエスクロー決済",
-    description: "商品が届いて確認するまで、代金は事務局が一時預かり。詐欺やトラブルを未然に防ぎます。",
+    title: "Safety First",
+    description: "お金や商品に関わることだから、安全第一。スタッフがしっかりと管理し、トラブルを防ぎます。",
     icon: ShieldCheck,
     className: "md:col-span-1",
   },
   {
-    title: "スマホ完結、即日出品",
-    description: "アプリ不要、ブラウザから写真を撮ってアップするだけ。最短1分で出品完了。",
-    icon: Smartphone,
+    title: "Fair Price",
+    description: "チケットはお得に、タオルは適正価格で。お客様に損をさせない価格設定を心がけています。",
+    icon: Zap,
     className: "md:col-span-1",
   },
   {
-    title: "24時間365日の監視体制",
-    description: "AIと有人監視のハイブリッド体制で、不正出品や疑わしい取引を常時モニタリングしています。",
+    title: "Customer Support",
+    description: "分からないことがあれば、いつでもご相談ください。誠意を持ってサポートさせていただきます。",
     icon: RefreshCw,
     className: "md:col-span-2",
   },
@@ -87,19 +77,19 @@ export const FEATURES: FeatureItem[] = [
 
 export const FAQS: FaqItem[] = [
   {
-    question: "出品手数料はいくらですか？",
-    answer: "出品自体は無料です。取引が成立した際のみ、販売価格の数%を手数料としていただいております（キャンペーンにより変動あり）。",
+    question: "どのような事業を展開していますか？",
+    answer: "現在は金券売買サイト「Chikemo」と、今治タオルのお店「Ceremony」を運営しています。",
   },
   {
-    question: "購入した商品はいつ届きますか？",
-    answer: "出品者によりますが、原則として購入確定から2日以内の発送をお願いしています。発送通知後、追跡番号で状況を確認できます。",
+    question: "Chikemoの手数料について教えてください。",
+    answer: "Chikemoでは出品自体は無料です。取引成立時にのみ手数料を頂戴する仕組みなので、安心してお使いいただけます。",
   },
   {
-    question: "トラブルが起きた場合は？",
-    answer: "商品が届かない、内容が違うなどのトラブル時は、受取評価をする前に事務局へご連絡ください。代金の支払いを保留し、調査を行います。",
+    question: "Ceremonyの商品はどこで購入できますか？",
+    answer: "公式オンラインストアにて販売しております。お祝いや返礼品に最適なギフトセットから、ご自宅用の単品まで幅広く取り揃えております。",
   },
   {
-    question: "本人確認は必要ですか？",
-    answer: "はい、安心・安全な取引環境を維持するため、初回出品時および一定金額以上の購入時に本人確認書類の提出をお願いしております。",
+    question: "法人での大口注文は可能ですか？",
+    answer: "はい。Chikemoでの金券大量購入、Ceremonyでの記念品・ノベルティ利用など、法人様向けのプランもご用意しております。お問い合わせフォームよりご相談ください。",
   },
 ];

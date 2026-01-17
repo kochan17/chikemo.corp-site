@@ -3,7 +3,7 @@ import { COMPANY_INFO } from '../../constants';
 
 const Footer: React.FC = () => {
   return (
-    <footer id="company" className="bg-[#171717] text-white pt-32 pb-12 overflow-hidden">
+    <footer id="footer" className="bg-[#171717] text-white pt-32 pb-12 overflow-hidden">
       <div className="container px-6 mx-auto">
         
         {/* Massive Logo */}

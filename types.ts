@@ -1,11 +1,13 @@
 import React from 'react';
 
-export interface TicketItem {
+export interface ServiceItem {
   id: string;
   name: string;
-  category: string;
-  discount: string;
+  tagline: string;
+  description: string;
+  link: string;
   image: string;
+  color: string;
 }
 
 export interface CompanyInfo {

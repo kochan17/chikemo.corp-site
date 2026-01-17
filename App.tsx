@@ -8,6 +8,7 @@ import Philosophy from './components/sections/Philosophy';
 import Showcase from './components/sections/Showcase';
 import Trust from './components/sections/Trust';
 import Process from './components/sections/Process';
+import About from './components/sections/About';
 import Footer from './components/layout/Footer';
 
 const App: React.FC = () => {
@@ -51,6 +52,7 @@ const App: React.FC = () => {
             <Showcase />
             <Trust />
             <Process />
+            <About />
           </main>
           
           <Footer />

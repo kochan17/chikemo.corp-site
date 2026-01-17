@@ -1,15 +1,15 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, Variants } from 'framer-motion';
 import MagneticButton from '../ui/MagneticButton';
 import { ArrowRight } from 'lucide-react';
 
 const MarqueeText: React.FC<{ text: string; direction?: number }> = ({ text, direction = 1 }) => {
   return (
-    <div className="flex overflow-hidden whitespace-nowrap opacity-[0.04] pointer-events-none select-none absolute top-1/2 left-0 right-0 -translate-y-1/2 z-0">
+    <div className="flex overflow-hidden whitespace-nowrap opacity-[0.03] pointer-events-none select-none absolute top-1/2 left-0 right-0 -translate-y-1/2 z-0">
       <motion.div
         className="flex gap-8 text-[12rem] md:text-[20rem] font-black leading-none uppercase text-black"
         animate={{ x: direction > 0 ? [0, -1000] : [-1000, 0] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
       >
         {[...Array(4)].map((_, i) => (
           <span key={i}>{text}</span>
@@ -24,10 +24,10 @@ const Hero: React.FC = () => {
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
 
-  const phrase = "金券を、もっと賢く。";
+  const phrase = "暮らしに、小さな便利と安らぎを。";
   const words = phrase.split("");
 
-  const container = {
+  const container: Variants = {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
       opacity: 1,
@@ -35,7 +35,7 @@ const Hero: React.FC = () => {
     }),
   };
 
-  const child = {
+  const child: Variants = {
     visible: {
       opacity: 1,
       y: 0,
@@ -55,8 +55,8 @@ const Hero: React.FC = () => {
 
   return (
     <section id="top" className="relative min-h-[110vh] flex flex-col items-center justify-center overflow-hidden bg-white">
-      {/* Kinetic Background */}
-      <MarqueeText text="SECURE TRUST SMART " direction={1} />
+      {/* Background Text */}
+      <MarqueeText text="TICKET & GIFT SERVICE " direction={1} />
       
       {/* Abstract Shapes */}
       <motion.div 
@@ -65,7 +65,7 @@ const Hero: React.FC = () => {
       />
       <motion.div 
         style={{ y: y2 }}
-        className="absolute bottom-[10%] right-[5%] w-[50vw] h-[50vw] bg-gradient-to-tl from-orange-100/50 to-transparent rounded-full blur-[120px] z-0"
+        className="absolute bottom-[10%] right-[5%] w-[50vw] h-[50vw] bg-gradient-to-tl from-gray-200/50 to-transparent rounded-full blur-[120px] z-0"
       />
 
       <div className="container relative z-10 px-6 flex flex-col items-center text-center">
@@ -82,7 +82,7 @@ const Hero: React.FC = () => {
                 transition={{ delay: 1 }}
                 className="text-xs font-bold tracking-[0.3em] text-[#E60012] uppercase"
             >
-                Next Gen Ticket Platform
+                Chikemo Inc.
             </motion.span>
         </div>
 
@@ -92,14 +92,16 @@ const Hero: React.FC = () => {
           initial="hidden"
           animate="visible"
         >
-          <div className="flex flex-wrap justify-center">
+          <div className="flex flex-wrap justify-center max-w-4xl">
             {words.map((word, index) => (
               <motion.span 
                 key={index} 
                 variants={child} 
-                className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-[#171717] inline-block origin-bottom"
+                className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-[#171717] inline-block origin-bottom leading-tight"
               >
-                {word === "、" ? <span className="mr-4">、</span> : word}
+                {word === "、" ? <span className="mr-2">、</span> : word}
+                {word === "。" ? <span>。</span> : null}
+                {word === "便" || word === "ら" ? <br className="md:hidden"/> : null}
               </motion.span>
             ))}
           </div>
@@ -111,9 +113,8 @@ const Hero: React.FC = () => {
           transition={{ delay: 1.5, duration: 0.8 }}
           className="text-lg md:text-xl text-gray-500 mb-12 max-w-2xl font-medium leading-relaxed tracking-wide"
         >
-          テクノロジーで、二次流通を透明に。<br className="md:hidden" />
-          Chikemoは、最も安全でスマートな<br className="md:hidden" />
-          チケット売買プラットフォームです。
+          流通を、なめらかに。<br />
+          体験を、豊かに。
         </motion.p>
 
         <motion.div
@@ -128,7 +129,7 @@ const Hero: React.FC = () => {
               element?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            体験を始める <ArrowRight className="ml-2" />
+            サービスを見る <ArrowRight className="ml-2" />
           </MagneticButton>
         </motion.div>
       </div>

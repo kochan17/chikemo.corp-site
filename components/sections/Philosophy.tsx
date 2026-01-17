@@ -14,7 +14,7 @@ const Paragraph: React.FC<{ children: string; index: number }> = ({ children, in
     <motion.p
       ref={element}
       style={{ opacity }}
-      className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8 md:mb-12 tracking-tight transition-colors duration-500"
+      className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8 md:mb-12 tracking-tight transition-colors duration-500"
     >
       {children}
     </motion.p>
@@ -23,21 +23,23 @@ const Paragraph: React.FC<{ children: string; index: number }> = ({ children, in
 
 const Philosophy: React.FC = () => {
   const texts = [
-    "チケットは、",
-    "単なる紙切れではありません。",
-    "それは、誰かの",
-    "楽しみな予定であり、",
-    "大切な思い出への入り口です。",
-    "だからこそ私たちは、",
-    "最も安全で、最も透明な",
-    "場所を作りました。"
+    "チケットという、",
+    "楽しみへのパスポート。",
+    "タオルという、",
+    "毎日の暮らしの必需品。",
+    "私たちが扱っているのは、",
+    "決して派手なものでは",
+    "ないかもしれません。",
+    "けれど、だからこそ、",
+    "正直に、丁寧に届けたい。",
+    "それが私たちの想いです。"
   ];
 
   return (
-    <section className="bg-white py-32 md:py-48 px-6">
+    <section id="philosophy" className="bg-white py-32 md:py-48 px-6">
       <div className="container mx-auto max-w-5xl">
         <div className="mb-16">
-            <span className="text-[#E60012] font-mono text-sm tracking-wider block mb-4">00 / PHILOSOPHY</span>
+            <span className="text-[#E60012] font-mono text-sm tracking-wider block mb-4">00 / 私たちの想い</span>
         </div>
         
         {texts.map((text, i) => (
@@ -47,9 +49,9 @@ const Philosophy: React.FC = () => {
         ))}
 
         <div className="mt-32 flex justify-end">
-            <div className="max-w-md text-right">
+            <div className="max-w-lg text-right">
                 <p className="text-gray-500 leading-relaxed font-medium">
-                    Chikemoはテクノロジーの力で、二次流通市場の不透明さを解消します。エスクロー決済、AI監視、本人確認。あらゆる手段で、あなたの「価値」を守ります。
+                    株式会社チケモは、誰でも安心して使えるチケット売買サービス「Chikemo」と、品質にこだわった今治タオルのお店「Ceremony」を運営しています。お客様の「欲しい」に、誠実にお応えします。
                 </p>
             </div>
         </div>
