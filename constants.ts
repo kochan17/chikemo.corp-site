@@ -34,7 +34,7 @@ export const SERVICES: ServiceItem[] = [
     tagline: 'Ticket Flea Market',
     description: '「安く、早く、安全に」。金券・チケットの売買をもっと手軽にする、オンライン金券ショップです。',
     link: 'https://chikemo.net',
-    image: './chikemo.png',
+    image: 'https://storage.googleapis.com/studio-design-asset-files/projects/wQOVVz1XOD/s-4000x2000_ea72e97f-3a2c-4ce6-a7ba-ea39aa62bd7a.webp',
     color: '#E60012',
   },
   {
@@ -43,7 +43,7 @@ export const SERVICES: ServiceItem[] = [
     tagline: 'Imabari Towel Gift',
     description: 'お祝いや返礼品に。品質にこだわった今治タオルを、木箱に入れて丁寧にお届けするギフトショップです。',
     link: 'https://ceremo.bigcartel.com/',
-    image: './タオル.jpg',
+    image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?q=80&w=2070&auto=format&fit=crop',
     color: '#C5A065', // Gold/Beige for premium feel
   },
 ];
@@ -78,18 +78,18 @@ export const FEATURES: FeatureItem[] = [
 export const FAQS: FaqItem[] = [
   {
     question: "どのような事業を展開していますか？",
-    answer: "現在は金券売買サイト「Chikemo」と、今治タオルのお店「Ceremony」を運営しています。",
+    answer: "現在は金券売買サイト「チケモ」と、今治タオルのお店「セレモ」を運営しています。",
   },
   {
-    question: "Chikemoの手数料について教えてください。",
-    answer: "Chikemoでは出品自体は無料です。取引成立時にのみ手数料を頂戴する仕組みなので、安心してお使いいただけます。",
+    question: "チケモの手数料について教えてください。",
+    answer: "チケモでは出品自体は無料です。取引成立時にのみ手数料を頂戴する仕組みなので、安心してお使いいただけます。",
   },
   {
-    question: "Ceremonyの商品はどこで購入できますか？",
+    question: "セレモの商品はどこで購入できますか？",
     answer: "公式オンラインストアにて販売しております。お祝いや返礼品に最適なギフトセットから、ご自宅用の単品まで幅広く取り揃えております。",
   },
   {
     question: "法人での大口注文は可能ですか？",
-    answer: "はい。Chikemoでの金券大量購入、Ceremonyでの記念品・ノベルティ利用など、法人様向けのプランもご用意しております。お問い合わせフォームよりご相談ください。",
+    answer: "はい。チケモでの金券大量購入、セレモでの記念品・ノベルティ利用など、法人様向けのプランもご用意しております。お問い合わせフォームよりご相談ください。",
   },
 ];

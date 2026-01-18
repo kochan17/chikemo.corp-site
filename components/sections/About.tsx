@@ -13,7 +13,7 @@ const About: React.FC = () => {
 
   return (
     <section id="about" ref={container} className="py-32 bg-white relative overflow-hidden">
-      {/* Background Typography - 薄く残すが、あまり目立たないように */}
+      {/* Background Typography */}
       <div className="absolute top-20 right-0 opacity-[0.03] select-none pointer-events-none">
         <span className="text-[15rem] font-black leading-none">ABOUT</span>
       </div>
@@ -23,7 +23,7 @@ const About: React.FC = () => {
            <motion.span 
              initial={{ opacity: 0, x: -20 }}
              whileInView={{ opacity: 1, x: 0 }}
-             viewport={{ once: true }}
+             viewport={{ once: true, margin: "-10%" }}
              className="text-[#E60012] font-mono text-sm tracking-wider block mb-4"
            >
              04 / 私たちについて
@@ -31,7 +31,7 @@ const About: React.FC = () => {
            <motion.h2 
              initial={{ opacity: 0, y: 30 }}
              whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true }}
+             viewport={{ once: true, margin: "-10%" }}
              transition={{ delay: 0.2 }}
              className="text-4xl md:text-6xl font-black tracking-tight text-[#171717] leading-tight"
            >
@@ -45,7 +45,7 @@ const About: React.FC = () => {
           {/* Left Column: Visuals */}
           <div className="lg:col-span-5 flex flex-col gap-8">
             <motion.div 
-              style={{ y }}
+              style={{ y, willChange: 'transform' }}
               className="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl"
             >
                <img 
@@ -60,7 +60,7 @@ const About: React.FC = () => {
             </motion.div>
 
             <motion.div 
-               style={{ y: y2 }}
+               style={{ y: y2, willChange: 'transform' }}
                className="relative rounded-3xl overflow-hidden aspect-video shadow-xl ml-12 border border-gray-100"
             >
                <img 
@@ -79,7 +79,7 @@ const About: React.FC = () => {
               className="mb-16 border-l-2 border-gray-100 pl-8 md:pl-12"
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-10%" }}
               transition={{ delay: 0.3 }}
             >
               <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
@@ -99,7 +99,7 @@ const About: React.FC = () => {
               <motion.div
                  initial={{ opacity: 0, y: 20 }}
                  whileInView={{ opacity: 1, y: 0 }}
-                 viewport={{ once: true }}
+                 viewport={{ once: true, margin: "-10%" }}
                  transition={{ delay: 0.4 }}
               >
                  <h3 className="text-xl font-black mb-4 uppercase tracking-wider text-[#171717]">私たちの使命</h3>
@@ -114,7 +114,7 @@ const About: React.FC = () => {
               <motion.div
                  initial={{ opacity: 0, y: 20 }}
                  whileInView={{ opacity: 1, y: 0 }}
-                 viewport={{ once: true }}
+                 viewport={{ once: true, margin: "-10%" }}
                  transition={{ delay: 0.5 }}
               >
                  <h3 className="text-xl font-black mb-4 uppercase tracking-wider text-[#171717]">目指す姿</h3>
@@ -132,7 +132,7 @@ const About: React.FC = () => {
               className="mt-20 p-8 bg-gray-50 rounded-3xl relative"
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-10%" }}
               transition={{ delay: 0.6 }}
             >
               <span className="absolute top-8 left-8 text-6xl text-[#E60012] opacity-20 font-serif">"</span>

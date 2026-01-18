@@ -45,10 +45,10 @@ const ServiceCard: React.FC<{ item: ServiceItem; index: number }> = ({ item, ind
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      initial={{ opacity: 0, y: 100 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: index * 0.1 }}
-      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
+      viewport={{ once: true, margin: "-100px" }}
       className="relative w-full h-[600px] perspective-1000 group cursor-none mb-12"
       onClick={() => window.open(item.link, '_blank')}
     >
@@ -125,7 +125,7 @@ const Showcase: React.FC = () => {
           className="mb-20 flex flex-col md:flex-row md:items-end md:justify-between border-b border-gray-200 pb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-10%" }}
         >
           <div className="max-w-2xl">
             <span className="text-[#E60012] font-mono text-sm tracking-wider mb-2 block">01 / サービス紹介</span>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ShieldCheck, UserCheck, Award } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Trust: React.FC = () => {
   return (
@@ -11,7 +12,12 @@ const Trust: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 border-b border-gray-100 pb-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          className="flex flex-col md:flex-row md:items-end justify-between mb-20 border-b border-gray-100 pb-8"
+        >
             <div>
                 <span className="text-[#E60012] font-mono text-sm tracking-wider block mb-2">02 / 安心・安全への取り組み</span>
                 <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
@@ -23,11 +29,17 @@ const Trust: React.FC = () => {
                 顔の見えないインターネット取引だからこそ、<br className="hidden md:block" />
                 アナログな「人の目」と「確かな基準」を大切にしています。
             </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
             {/* Left Main Card */}
-            <div className="bg-gray-50 border border-gray-100 p-8 md:p-12 rounded-[2rem] flex flex-col justify-between group hover:border-[#E60012]/30 transition-colors duration-500">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ delay: 0.1 }}
+              className="bg-gray-50 border border-gray-100 p-8 md:p-12 rounded-[2rem] flex flex-col justify-between group hover:border-[#E60012]/30 transition-colors duration-500"
+            >
                 <div>
                     <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-sm text-[#E60012] mb-8">
                         <ShieldCheck size={32} />
@@ -56,12 +68,18 @@ const Trust: React.FC = () => {
                         </li>
                     </ul>
                 </div>
-            </div>
+            </motion.div>
             
             {/* Right Column */}
             <div className="flex flex-col gap-8">
                 {/* Human Check */}
-                <div className="bg-white border border-gray-100 p-8 md:p-10 rounded-[2rem] flex-1 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <motion.div 
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-10%" }}
+                    transition={{ delay: 0.2 }}
+                    className="bg-white border border-gray-100 p-8 md:p-10 rounded-[2rem] flex-1 shadow-sm hover:shadow-md transition-shadow duration-300"
+                >
                     <div className="flex items-start justify-between mb-4">
                         <h3 className="text-xl md:text-2xl font-bold">人の目による確認</h3>
                         <UserCheck className="text-gray-300" size={28} />
@@ -71,10 +89,16 @@ const Trust: React.FC = () => {
                         「機械的な排除」ではなく「人の判断」を入れることで、
                         トラブルの種を未然に防ぎつつ、スムーズな取引をサポートします。
                     </p>
-                </div>
+                </motion.div>
 
                 {/* Quality Certified */}
-                <div className="bg-[#E60012]/5 border border-[#E60012]/10 p-8 md:p-10 rounded-[2rem] flex-1 relative overflow-hidden">
+                <motion.div 
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-10%" }}
+                    transition={{ delay: 0.3 }}
+                    className="bg-[#E60012]/5 border border-[#E60012]/10 p-8 md:p-10 rounded-[2rem] flex-1 relative overflow-hidden"
+                >
                     <div className="relative z-10">
                         <div className="flex items-start justify-between mb-4">
                             <h3 className="text-xl md:text-2xl font-bold text-[#E60012]">今治タオルの品質保証</h3>
@@ -93,7 +117,7 @@ const Trust: React.FC = () => {
                     <div className="absolute -bottom-4 -right-4 opacity-5">
                          <Award size={160} />
                     </div>
-                </div>
+                </motion.div>
             </div>
         </div>
       </div>

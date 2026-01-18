@@ -5,7 +5,7 @@ const Paragraph: React.FC<{ children: string; index: number }> = ({ children, in
   const element = useRef(null);
   const { scrollYProgress } = useScroll({
     target: element,
-    offset: ['start 0.9', 'start 0.25']
+    offset: ['start 0.9', 'start 0.6']
   });
 
   const opacity = useTransform(scrollYProgress, [0, 1], [0.1, 1]);
@@ -14,7 +14,7 @@ const Paragraph: React.FC<{ children: string; index: number }> = ({ children, in
     <motion.p
       ref={element}
       style={{ opacity }}
-      className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8 md:mb-12 tracking-tight transition-colors duration-500"
+      className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8 md:mb-12 tracking-tight transition-colors duration-500 will-change-[opacity]"
     >
       {children}
     </motion.p>
@@ -51,7 +51,7 @@ const Philosophy: React.FC = () => {
         <div className="mt-32 flex justify-end">
             <div className="max-w-lg text-right">
                 <p className="text-gray-500 leading-relaxed font-medium">
-                    株式会社チケモは、誰でも安心して使えるチケット売買サービス「Chikemo」と、品質にこだわった今治タオルのお店「Ceremony」を運営しています。お客様の「欲しい」に、誠実にお応えします。
+                    株式会社チケモは、誰でも安心して使えるチケット売買サービス「チケモ」と、品質にこだわった今治タオルのお店「セレモ」を運営しています。お客様の「欲しい」に、誠実にお応えします。
                 </p>
             </div>
         </div>
